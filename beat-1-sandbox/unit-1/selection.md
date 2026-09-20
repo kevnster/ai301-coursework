@@ -8,44 +8,61 @@ https://github.com/codepath/pathreview-ai301-fa26-s3/issues/59
 
 **Verdict output**
 
-```
-Repo facts (apply to all three): not archived; last commit 2026-09-16 by human Aburke225
-(well within 90 days of today, 2026-09-20) -> maintainer-active passes for all. No stated
-AI/contribution-AI policy in docs/CONTRIBUTING.md or PR template -> ai-policy-allowed
-passes (silence passes) for all. None of the three issues have any assignee, comment, or
-linked/mentioned PR -> unclaimed passes for all.
+````
+Good, `gh` is authenticated. Let me gather repo-level facts and per-issue data in parallel.
 
-Issue: #59 - faithfulness checker word-overlap bug
-maintainer-active: pass
-unclaimed: pass
-scope-bounded: pass (bounded bug fix, has repro test)
-ai-policy-allowed: pass
-labeled-friendly (pref): fail (labels: bug/rag/tier-1, "Starter difficulty" isn't
-literally good-first-issue/easy/help-wanted)
-Verdict: accept
+All three issues confirmed with no comments, no PRs, no claims — just labeling and a rename event each. All evidence gathered. Here's the grading.
 
-Ranked by fit profile:
-1. #59 - straight RAG-logic bug (faithfulness_checker.py), tier-1/"Starter difficulty,"
-   has a failing pytest repro already written. Smallest, cleanest first bite.
-2. #16 - agent-orchestration bug, tier-2/"Intermediate" with a 4-6h estimate, more
-   plumbing/propagation than domain logic.
-3. #32 - vector-store cleanup, carries a devops label alongside api, and the fix spans
-   api/routes, profile_service, and vector_store.
+**Repo-level facts** (apply to all three): not archived, most recent default-branch commit 2026-09-16 (4 days ago) by a human collaborator (Aburke225) → maintainer-active passes. No AI-restriction policy anywhere in `docs/CONTRIBUTING.md` or the PR template → ai-policy-allowed passes (silence). All three issues: opened by a COLLABORATOR, zero comments, zero assignees, zero linked/mentioned PRs, no `good first issue`/`easy`/`help wanted` label.
 
+## Summary
+
+**Accepted, ranked by fit** (Python/TS-React background, wants RAG + agent reps, limited evenings, avoid heavy infra):
+
+1. **#59 — Faithfulness checker scores claims unsupported when wording differs** (`rag`, `tier-1`) — direct RAG-scoring fix with a concrete failing test (`pytest tests/unit/test_faithfulness_checker.py`) to drive the work, pure Python logic, no infra label.
+2. **#16 — Failed tool calls never reach the review output** (`agent`, `tier-2`) — direct agent-orchestrator fix, ~4-6h estimate, matches the "get better at agent code" goal, pure backend logic.
+3. **#32 — `DELETE /profiles/{id}` leaves embeddings in the vector store** (`api`, `devops`, `tier-2`) — solid bounded bug but spans three layers (route, service, vector store) and carries a `devops` label, which brushes against the stated preference to avoid infra work.
+
+None carry a `good first issue`/`easy`/`help wanted` label, so the preferred check fails across the board — doesn't change any verdict, just flattens the ranking to fit alone.
+
+```json
 [
   {
     "item": "https://github.com/codepath/pathreview-ai301-fa26-s3/issues/59",
     "checks": [
-      {"name": "maintainer-active", "grade": "pass", "evidence": "archived:false; latest commit 2026-09-16 by human Aburke225"},
-      {"name": "unclaimed", "grade": "pass", "evidence": "assignees:[], comments:[], no linked/mentioned PRs for #59"},
-      {"name": "scope-bounded", "grade": "pass", "evidence": "single bounded bug in _is_supported(); bug fix so maintainer-open exemption applies; repro via pytest given; opened 2026-09-10, no history of abandoned PRs"},
-      {"name": "ai-policy-allowed", "grade": "pass", "evidence": "no AI/contribution-AI policy found in docs/CONTRIBUTING.md or PR template"},
-      {"name": "labeled-friendly", "grade": "fail", "evidence": "labels are bug, rag, tier-1 (Starter difficulty) - no literal good first issue/easy/help wanted label"}
+      {"name": "maintainer-active", "grade": "pass", "evidence": "archived: no; commit 2f4e82f by human Aburke225 on 2026-09-16, 4 days before today 2026-09-20"},
+      {"name": "unclaimed", "grade": "pass", "evidence": "no assignees, zero comments, zero linked/cross-referenced PRs"},
+      {"name": "scope-bounded", "grade": "pass", "evidence": "single bug fix in `_is_supported()`, opener is COLLABORATOR, bug fix so ownership condition exempt anyway, includes concrete repro test, opened 10 days ago with no PR history"},
+      {"name": "ai-policy-allowed", "grade": "pass", "evidence": "no AI/contribution restriction found in docs/CONTRIBUTING.md or PR template; silence passes"},
+      {"name": "labeled-friendly", "grade": "fail", "evidence": "labels are [bug, rag, tier-1], no good first issue/easy/help wanted"}
+    ],
+    "verdict": "accept"
+  },
+  {
+    "item": "https://github.com/codepath/pathreview-ai301-fa26-s3/issues/16",
+    "checks": [
+      {"name": "maintainer-active", "grade": "pass", "evidence": "archived: no; commit 2f4e82f by human Aburke225 on 2026-09-16, 4 days before today 2026-09-20"},
+      {"name": "unclaimed", "grade": "pass", "evidence": "no assignees, zero comments, zero linked/cross-referenced PRs"},
+      {"name": "scope-bounded", "grade": "pass", "evidence": "single bug fix wiring failed tool_results into review output, opener is COLLABORATOR, bug fix so ownership condition exempt anyway, opened 10 days ago with no PR history"},
+      {"name": "ai-policy-allowed", "grade": "pass", "evidence": "no AI/contribution restriction found in docs/CONTRIBUTING.md or PR template; silence passes"},
+      {"name": "labeled-friendly", "grade": "fail", "evidence": "labels are [bug, agent, tier-2], no good first issue/easy/help wanted"}
+    ],
+    "verdict": "accept"
+  },
+  {
+    "item": "https://github.com/codepath/pathreview-ai301-fa26-s3/issues/32",
+    "checks": [
+      {"name": "maintainer-active", "grade": "pass", "evidence": "archived: no; commit 2f4e82f by human Aburke225 on 2026-09-16, 4 days before today 2026-09-20"},
+      {"name": "unclaimed", "grade": "pass", "evidence": "no assignees, zero comments, zero linked/cross-referenced PRs"},
+      {"name": "scope-bounded", "grade": "pass", "evidence": "single bug fix (clear vector-store chunks on profile delete), opener is COLLABORATOR, bug fix so ownership condition exempt anyway, opened 10 days ago with no PR history"},
+      {"name": "ai-policy-allowed", "grade": "pass", "evidence": "no AI/contribution restriction found in docs/CONTRIBUTING.md or PR template; silence passes"},
+      {"name": "labeled-friendly", "grade": "fail", "evidence": "labels are [bug, api, devops, tier-2], no good first issue/easy/help wanted"}
     ],
     "verdict": "accept"
   }
 ]
 ```
+````
 
 ---
 
