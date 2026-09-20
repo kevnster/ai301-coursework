@@ -1,8 +1,0 @@
-I'm blocked — network access (via `gh`, `curl`, and `WebFetch`) requires a permission approval that isn't coming through in this session, so I can't reach GitHub in live mode right now.
-
-Two ways forward:
-
-1. **You approve one of the pending tool permissions** (Bash network access or WebFetch) when prompted, and I'll retry the live fetch for all three issues.
-2. **Switch to eval mode**: if you have (or can pull) a snapshot bundle for these issues — the markdown file with issue text, comment thread, and repo-facts block that the skill's eval mode expects — paste it or point me to the file, and I can grade without needing network access at all.
-
-Which would you like to do?
